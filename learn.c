@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <errno.h>
+#include <ctype.h>
 
 //char* my_strcpy(char* dest, const char* src)
 //{
@@ -40,48 +42,82 @@
 
 //strstr -- 字符串函数查找的实现
 
-char* my_strstr(const char* p1, const char* p2)
-{
-	assert(p1 && p2);
-	char* S1 = NULL;
-	char* S2 = NULL;
-	char* mark = (char*)p1;
-	if (!*p2)
-	{
-		return (char*)p1;
-	}
-	while (*mark)
-	{
-		S1 = mark;
-		S2 = (char*)p2;
-		while (*S1 && *S2 && (*S1 == *S2))
-		{
-			S1++, S2++;
-		}
-		if (!*S2)
-		{
-			return mark;
-		}
-		else
-			mark++;
-	}
-	return NULL;
-}
+//char* my_strstr(const char* p1, const char* p2)
+//{
+//	assert(p1 && p2);
+//	char* S1 = NULL;
+//	char* S2 = NULL;
+//	char* mark = (char*)p1;
+//	if (!*p2)
+//	{
+//		return (char*)p1;
+//	}
+//	while (*mark)
+//	{
+//		S1 = mark;
+//		S2 = (char*)p2;
+//		while (*S1 && *S2 && (*S1 == *S2))
+//		{
+//			S1++, S2++;
+//		}
+//		if (!*S2)
+//		{
+//			return mark;
+//		}
+//		else
+//			mark++;
+//	}
+//	return NULL;
+//}
+//
+//int main()
+//{
+//	const char* p1 = "abbcdef";
+//	const char* p2 = "bcd";
+//	//strstr 函数的返回值为 char* 类型
+//	char* ret = my_strstr(p1, p2);
+//	if (ret == NULL)
+//	{
+//		printf("字符串不存在\n");
+//	}
+//	else
+//	{
+//		printf("%s\n", ret);
+//	}
+//	return 0;
+//}
 
+
+//int main()
+//{
+//	FILE* pf = fopen("test.txt", "r");
+//	if (pf == NULL)
+//		printf("%s\n", strerror(errno));
+//	else
+//		printf("Open file successfully\n");
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	char arr = 'a';
+//	int ret = islower(arr);
+//	printf("%d\n", ret);
+//	return 0;
+//}
+
+//字符分类函数和字符转换函数的使用。
 int main()
 {
-	const char* p1 = "abbcdef";
-	const char* p2 = "bcd";
-	//strstr 函数的返回值为 char* 类型
-	char* ret = my_strstr(p1, p2);
-	if (ret == NULL)
+	char arr[] = "I am a SB.";
+	int i = 0;
+	while (arr[i])
 	{
-		printf("字符串不存在\n");
+		if (isupper(arr[i]))
+			arr[i] = tolower(arr[i]);
+		i++;
 	}
-	else
-	{
-		printf("%s\n", ret);
-	}
+	printf("%s\n", arr);
 	return 0;
 }
-
