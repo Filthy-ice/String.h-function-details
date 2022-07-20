@@ -108,16 +108,47 @@
 //}
 
 //字符分类函数和字符转换函数的使用。
+//int main()
+//{
+//	char arr[] = "I am a SB.";
+//	int i = 0;
+//	while (arr[i])
+//	{
+//		if (isupper(arr[i]))
+//			arr[i] = tolower(arr[i]);
+//		i++;
+//	}
+//	printf("%s\n", arr);
+//	return 0;
+//}
+
+typedef struct Student
+{
+	char name[20];
+	int age;
+}S;
+
+void* my_memcpy(void* str, const void* src, size_t sz)
+{
+	void* ret = str;
+	assert(str && src);
+	while (sz--)
+	{
+		*(char*)str = *(char*)src;
+		++(char*)str;
+		++(char*)src;
+	}
+	return ret;
+}
+
 int main()
 {
-	char arr[] = "I am a SB.";
-	int i = 0;
-	while (arr[i])
-	{
-		if (isupper(arr[i]))
-			arr[i] = tolower(arr[i]);
-		i++;
-	}
-	printf("%s\n", arr);
+	S S1[] = {{"张三",20},{"李四",30}};
+	S S2[2] = { 0 };
+	my_memcpy(S2, S1, sizeof(S1));
+	printf("%s\n", S2[0].name);
+	printf("%d\n", S2[0].age);
+	printf("%s\n", S2[1].name);
+	printf("%d\n", S2[1].age);
 	return 0;
 }

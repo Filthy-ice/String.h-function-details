@@ -1,2 +1,3 @@
 ﻿  learn.c
+F:\global vs codes\String.h function details\learn.c(141): warning C4716: “my_memcpy”: 必须返回一个值
   String.h function details.vcxproj -> F:\global vs codes\String.h function details\Debug\String.h function details.exe
