@@ -122,33 +122,92 @@
 //	return 0;
 //}
 
-typedef struct Student
-{
-	char name[20];
-	int age;
-}S;
+//typedef struct Student
+//{
+//	char name[20];
+//	int age;
+//}S;
+//
+//void* my_memcpy(void* str, const void* src, size_t sz)
+//{
+//	void* ret = str;
+//	assert(str && src);
+//	while (sz--)
+//	{
+//		*(char*)str = *(char*)src;
+//		++(char*)str;
+//		++(char*)src;
+//	}
+//	return ret;
+//}
+//
+//int main()
+//{
+//	S S1[] = {{"张三",20},{"李四",30}};
+//	S S2[2] = { 0 };
+//	my_memcpy(S2, S1, sizeof(S1));
+//	printf("%s\n", S2[0].name);
+//	printf("%d\n", S2[0].age);
+//	printf("%s\n", S2[1].name);
+//	printf("%d\n", S2[1].age);
+//	return 0;
+//}
 
-void* my_memcpy(void* str, const void* src, size_t sz)
+//int main()
+//{
+//	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+//	memcpy(arr + 2, arr, 20);
+//
+//	//C语言标准：memcpy只要能实现不重叠拷贝就行。
+//	//怪的是2022VS也可以用memcpy实现重叠拷贝。
+//	//但不是所有的编译器都支持
+//
+//	int i = 0;
+//	for (i = 0; i < 10; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	return 0;
+//}
+
+void* my_memmove(void* dest, const void* src, size_t count)
 {
-	void* ret = str;
-	assert(str && src);
-	while (sz--)
+	assert(dest && src);
+	void* ret = src;
+	//第一种写法
+	if (dest < src)
 	{
-		*(char*)str = *(char*)src;
-		++(char*)str;
-		++(char*)src;
+		//从前往后拷贝
+		//使用my_memcpy的方法就可以
+		while (count--)
+		{
+			*(char*)dest = *(char*)src;
+			dest = (char*)dest + 1;
+			src = (char*)src + 1;
+		}
+	}
+	else
+	{
+		//从后往前拷贝
+		//注意越界
+		while (count--)
+		{
+			//因为此时我们需要src内存中最后一个字节的存储，所以应该使用count-1，但是count已经--了，因此此时count已经相当于最后一位了。
+			*((char*)dest + count) = *((char*)src + count);
+
+		}
 	}
 	return ret;
 }
 
 int main()
 {
-	S S1[] = {{"张三",20},{"李四",30}};
-	S S2[2] = { 0 };
-	my_memcpy(S2, S1, sizeof(S1));
-	printf("%s\n", S2[0].name);
-	printf("%d\n", S2[0].age);
-	printf("%s\n", S2[1].name);
-	printf("%d\n", S2[1].age);
+	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+	my_memmove(arr + 2, arr, 20);
+	int i = 0;
+	for (i = 0; i < 10; i++)
+	{
+		printf("%d ", arr[i]);
+	}
 	return 0;
 }
