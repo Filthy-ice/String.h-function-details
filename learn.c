@@ -170,44 +170,57 @@
 //	return 0;
 //}
 
-void* my_memmove(void* dest, const void* src, size_t count)
-{
-	assert(dest && src);
-	void* ret = src;
-	//第一种写法
-	if (dest < src)
-	{
-		//从前往后拷贝
-		//使用my_memcpy的方法就可以
-		while (count--)
-		{
-			*(char*)dest = *(char*)src;
-			dest = (char*)dest + 1;
-			src = (char*)src + 1;
-		}
-	}
-	else
-	{
-		//从后往前拷贝
-		//注意越界
-		while (count--)
-		{
-			//因为此时我们需要src内存中最后一个字节的存储，所以应该使用count-1，但是count已经--了，因此此时count已经相当于最后一位了。
-			*((char*)dest + count) = *((char*)src + count);
+//void* my_memmove(void* dest, const void* src, size_t count)
+//{
+//	assert(dest && src);
+//	void* ret = src;
+//	//第一种写法
+//	if (dest < src)
+//	{
+//		//从前往后拷贝
+//		//使用my_memcpy的方法就可以
+//		while (count--)
+//		{
+//			*(char*)dest = *(char*)src;
+//			dest = (char*)dest + 1;
+//			src = (char*)src + 1;
+//		}
+//	}
+//	else
+//	{
+//		//从后往前拷贝
+//		//注意越界
+//		while (count--)
+//		{
+//			//因为此时我们需要src内存中最后一个字节的存储，所以应该使用count-1，但是count已经--了，因此此时count已经相当于最后一位了。
+//			*((char*)dest + count) = *((char*)src + count);
+//
+//		}
+//	}
+//	//第二种方法
+//	//让dest>src和dest<src+count处于一个判定逻辑下。
+//	return ret;
+//}
+//
+//int main()
+//{
+//	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+//	my_memmove(arr + 2, arr, 20);
+//	int i = 0;
+//	for (i = 0; i < 10; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	return 0;
+//}
 
-		}
-	}
-	return ret;
-}
+
 
 int main()
 {
-	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
-	my_memmove(arr + 2, arr, 20);
-	int i = 0;
-	for (i = 0; i < 10; i++)
-	{
-		printf("%d ", arr[i]);
-	}
+	int arr1[] = { 1,2,3,4,5 };
+	int arr2[] = { 1,3,2,5,4 };
+	int ret = memcmp(arr1, arr2, 8);
+	printf("%d\n", ret);
 	return 0;
 }
